@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="directoryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular JS for Everyone</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="directory.js"></script>
+  </head>
+  <body ng-controller="directoryCtrl">
+      Search: <input type="text" ng-model="search" placeholder="Search the name"/>
+      <h1>{{search}}</h1>
+      <ul>
+        <li ng-repeat="item in list | filter:search">{{item.name}} - <i>{{item.age}}</i></li>
+      </ul>
+
+      <form ng-submit="addPerson()">
+        <input type="text" placeholder="Name" ng-model="name"><br/>
+        <input type="number" placeholder="Age" ng-model="age"><br/>
+        <input type="submit" value="Submit">
+      </form>
+  </body>
+</html>

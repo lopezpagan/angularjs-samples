@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular JS for Everyone</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+  </head>
+  <body ng-init="list = ['one', 'two', 'three']; list2 = [{name: 'Tony', age: 40}, {name: 'Jose', age: 35}, {name:'Chuito', age: 30}]; bgColor = '#eee'" style="background-color: {{bgColor}};">
+      Your bg color: <input type="color" ng-model="bgColor" value="{{bgColor}}"/> <br/>
+      <h1>{{bgColor}}</h1>
+
+      Your name: <input type="text" ng-model="yourName" placeholder="Enter your name"/>
+      <h1>{{yourName}}</h1>
+
+      <ul>
+        <li ng-repeat="item in list">{{item}}</li>
+      </ul>
+      <ul>
+        <li ng-repeat="item2 in list2">{{item2.name}} - <u>{{item2.age}}</u></li>
+      </ul>
+
+      Search: <input type="text" ng-model="search" placeholder="Search the name"/>
+      <h1>{{yourName}}</h1>
+
+      <ul>
+        <li ng-repeat="item2 in list2 | filter:search">{{item2.name}} - <u>{{item2.age}}</u></li>
+      </ul>
+  </body>
+</html>
