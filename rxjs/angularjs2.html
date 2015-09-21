@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <title>RxJS + AngularJS 2</title>
+    <script src="rx.lite.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="rx.angular.min.js"></script>
+  </head>
+<body>
+
+  <div class="container" ng-controller="AppCtrl1">
+
+    <input type="text" ng-model="search">
+    <button ng-click="click()">Search</button>
+
+    <ul>
+      <li ng-repeat="result in results">{{result}}</li>
+    </ul>
+
+  </div>
+
+  <div class="container" ng-controller="AppCtrl2">
+
+    <input type="text" ng-model="search">
+    <button ng-click="click()">Search</button>
+
+    <ul>
+      <li ng-repeat="result in results">{{result}}</li>
+    </ul>
+
+  </div>
+
+<script>
+angular.module('app', ['rx'])
+  .controller('AppCtrl1', function($scope, $http, rx) {
+
+    function searchWikipedia (term) {
+      return rx.Observable
+        .fromPromise($http({
+          url: "http://en.wikipedia.org/w/api.php?&callback=JSON_CALLBACK",
+          method: "jsonp",
+          params: {
+            action: "opensearch",
+            search: term,
+            format: "json"
+          }
+        }))
+        .map(function(response){ return response.data[1]; });
+    }
+    var scope1 = $scope;
+
+    scope1.search = '';
+    scope1.results = [];
+
+    /*
+      Creates a "click" function which is an observable sequence instead of just a function.
+    */
+    scope1.$createObservableFunction('click')
+      .map(function () { return scope1.search; })
+      .flatMapLatest(searchWikipedia)
+      .subscribe(function(results) {
+        scope1.results = results;
+      });
+  })
+  .controller('AppCtrl2', function($scope, $http, rx) {
+
+    function searchWikipedia (term) {
+      return rx.Observable
+        .fromPromise($http({
+          url: "http://es.wikipedia.org/w/api.php?&callback=JSON_CALLBACK",
+          method: "jsonp",
+          params: {
+            action: "opensearch",
+            search: term,
+            format: "json"
+          }
+        }))
+        .map(function(response){ return response.data[1]; });
+    }
+    var scope2 = $scope;
+
+    scope2.search = '';
+    scope2.results = [];
+
+    /*
+      Creates a "click" function which is an observable sequence instead of just a function.
+    */
+    scope2.$createObservableFunction('click')
+      .map(function () { return scope2.search; })
+      .flatMapLatest(searchWikipedia)
+      .subscribe(function(results) {
+        scope2.results = results;
+      });
+  });
+
+</script>
+</body>
+</html>
