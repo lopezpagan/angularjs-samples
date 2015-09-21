@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RxJS + AngularJS</title>
+    <script src="rx.lite.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="rx.angular.min.js"></script>
+  </head>
+<body>
+
+  <div class="container" ng-app="example" ng-controller="AppCtrl">
+
+    <input type="text" ng-model="search">
+    <button ng-click="click()">Search</button>
+
+    <ul>
+      <li ng-repeat="result in results">{{result}}</li>
+    </ul>
+
+  </div>
+
+
+<script>
+angular.module('example', ['rx'])
+  .controller('AppCtrl', function($scope, $http, rx) {
+
+    function searchMe (term) {
+      return rx.Observable
+        .fromPromise($http({
+          url: "http://app.surferspr.com/category/facebook/json?&callback=JSON_CALLBACK",
+          method: "jsonp"
+        }))
+        .map(function(response){ return response.data; });
+    }
+
+    $scope.search = '';
+    $scope.results = [];
+
+    /*
+      Creates a "click" function which is an observable sequence instead of just a function.
+    */
+    $scope.$createObservableFunction('click')
+      .map(function () { return $scope.search; })
+      .flatMapLatest(searchMe)
+      .subscribe(function(results) {
+        $scope.results = results;
+      });
+  });
+
+</script>
+</body>
+</html>
