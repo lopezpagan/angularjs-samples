@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org">
+<head>
+<!--(this meta prohibit IE to use the quirks mode)-->
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Form</title>
+  
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/bootstrap-theme.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link href='http://fonts.googleapis.com/css?family=Roboto:100,200,400,300,300italic' rel='stylesheet' type='text/css'>
+<style>body{padding-top:50px;}.starter-template{padding:40px 15px;text-align:center;}</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/i18n/angular-locale_es-pr.js"></script>-->
+<script src="form.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!--[if IE]>
+<script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!--[if lte IE 8]
+<script type="text/javascript">
+  // define our custom directives here
+  window.myCustomTags = ['ng-app', 'ng-controller', 'ng-repeat', 'ng-class', 'ng-model', 'ng-show'];
+</script>
+<script src="assets/js/json2.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui-ieshiv.min.js"></script>
+<![endif]-->
+<style>
+    .red-color {
+      color: red;
+    }
+    .blue-color: {
+      color: blue;
+    }
+    input.ng-invalid.ng-touched, input.ng-pattern-invalid.ng-touched {
+      border: 1px solid red;
+    }
+    input.ng-valid.ng-touched, input.ng-pattern-valid.ng-touched {
+      border: 1px solid green;
+    }
+    input.ng-pristine.ng-touched {
+      border: 1px solid silver;
+    }
+</style>
+</head>
+<body id="ng-app" ng-app="formApp"> 
+<div ng-controller="formCtrl as formList"> 
+    <div class="gray-bg section-form">
+       <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <ul>
+                <li ng-repeat="item in formList.list"
+                    ng-class="item.cctype == 'Visa' ? 'red-color' : 'blue-color'"
+                >
+                  {{item.fname}} | {{item.lname}} | {{item.mname}} | <i>{{item.email}}</i> | {{item.phone}} | {{item.ccnumber}} | {{item.cctype}} | {{item.terms}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="white-bg section-form">
+        <div class="wrapper">
+              <h3>Inscríbete para participar</h3>
+              <div class="container-fluid"><div class="txt-required pull-right">*Campos requeridos</div></div>
+              <div class="container-fluid">
+                  <form name="form" class="main-form" ng-submit="formList.submit(form)" novalidate >
+                      <input type="hidden" ng-model="formList.LANG" value="ES"/>
+                      <div class="row">
+                          <div class="col-sm-4 form-group">
+                                <label for="fname">Nombre*</label>
+                                <span ng-show="form.$submitted || form.Fname.$touched">
+                                  <span class="red-color" ng-show="form.Fname.$error.required">Requerido.</span>
+                                </span>
+                                <br/>
+                                <input type="text" name="Fname" ng-model="formList.fname" required>
+
+      <hr>
+      <tt>form.Fname.$valid = {{form.Fname.$valid}}</tt><br/>
+      <tt>form.Fname.$error = {{form.Fname.$error}}</tt><br/>
+      <tt>form.Lname.$valid = {{form.Lname.$valid}}</tt><br/>
+      <tt>form.Lname.$error = {{form.Lname.$error}}</tt><br/>
+      <tt>form.$valid = {{form.$valid}}</tt><br/>
+      <tt>form.$error.required = {{!!form.$error.required}}</tt><br/>
+      <tt>form.$error.minlength = {{!!form.$error.minlength}}</tt><br/>
+      <tt>form.$error.maxlength = {{!!form.$error.maxlength}}</tt><br/>
+      <tt>form.CCnumber.$error.pattern = {{!!form.CCnumber.$error.pattern}}</tt><br/>
+                          </div>
+
+                          <div class="col-sm-4 form-group">
+                                <label for="lname">Apellido Paterno*</label>
+                                <span ng-show="form.$submitted || form.Lname.$touched">
+                                  <span class="red-color" ng-show="form.Lname.$error.required">Requerido.</span>
+                                </span>
+                                <br/>
+                                <input type="text" name="Lname" ng-model="formList.lname" required>
+                          </div>
+
+                          <div class="col-sm-4 form-group">
+                                <label for="mname">Apellido Materno*</label>
+                                <span ng-show="form.$submitted || form.Mname.$touched">
+                                  <span class="red-color" ng-show="form.Mname.$error.required">Requerido.</span>
+                                </span>
+                                <br/>
+                                <input type="text" name="Mname" ng-model="formList.mname" required  >
+                          </div>                      
+                      </div>
+
+                      <div class="row">
+                          <div class="col-sm-6 form-group">
+                                <label for="email">Correo electrónico*</label>
+                                <span ng-show="form.$submitted || form.Email.$touched">
+                                  <span class="red-color" ng-show="form.Email.$error.required">Requerido.</span>
+                                  <span class="red-color" ng-show="form.Email.$error.email">Este email no es válido.</span>
+                                  <!--<span class="red-color" ng-show="form.Email.$error.pattern">Este email no es válido.</span>-->
+                                </span><br/>
+                                <input type="email" name="Email" ng-model="formList.email" required >
+                                <!--<input type="email" name="Email" ng-model="formList.email" ng-pattern="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i" required >-->
+
+                          </div>
+
+                          <div class="col-sm-6 form-group">
+                                <label for="phone">Teléfono*</label> 
+                                 <span ng-show="form.$submitted || form.Phone.$touched">
+                                  <span class="red-color" ng-show="form.Phone.$error.required">Requerido.</span>
+                                  <span class="red-color" ng-show="form.Phone.$error.pattern">Este número no es válido.</span>
+                                </span>
+                                <br/>
+                                <input type="text" name="Phone" ng-model="formList.phone" ng-pattern="/^(?:\(([0-9]{3})\)|([0-9]{3}))[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/" maxlength="14" required >
+
+                          </div>                     
+                      </div>
+
+                      <div class="row">
+                          <div class="col-sm-6 form-group">
+                                <label for="ccnumber">Últimos cuatro dígitos de tu tarjeta de crédito Beyond<small><sup>&reg;</sup></small>*</label> 
+                                 <span ng-show="form.$submitted || form.CCnumber.$touched">
+                                  <span class="red-color" ng-show="form.CCnumber.$error.required">Requerido.</span>
+                                  <span class="red-color" ng-show="form.CCnumber.$error.pattern">Este número no es válido.</span>
+                                </span>
+                                <br/>
+                                <input type="text" name="CCnumber" ng-model="formList.ccnumber" ng-pattern="/^([0-9]{4})$/" maxlength="4" required >
+                          </div>
+
+                          <div class="col-sm-6 form-group">
+                                <label for="cctype">Tipo de tarjeta*</label>                          
+                                 <span ng-show="!form.CCtype || !formList.cctype">
+                                  <span class="red-color" ng-show="form.CCtype.$error.required">Requerido.</span>
+                                </span>
+                                <br/>
+                                <select name="CCtype" 
+                                        ng-options="option.text for option in formList.data.availableOptions track by option.value"
+                                        ng-model="formList.data.selectedOption" 
+                                        required>
+                                </select>
+
+                          </div>                     
+                      </div>
+
+                      <div class="row" style="margin-top: 50px;">
+                          <div class="col-xs-12 col-md-6">
+
+                              <div class="form-group">
+                                    <div class="container-fluid">
+
+                                    <input type="checkbox" name="Terms" ng-model="formList.terms" required> 
+                                    <span ng-show="form.$submitted || form.Terms.$touched">
+                                      <span class="red-color" ng-show="!form.Terms || !formList.terms">Debe aceptar para proseguir.</span>
+                                    </span>
+                                    <label for="terms" class="checkbox"> Acepto que leí las <a href="#" target="_blank">reglas del concurso</a>.</label></div>
+
+                              </div> 
+                              <div class="form-group">
+                                    <div class="container-fluid"> 
+                                    <input type="submit" class="btn form-submit btn-default col-xs-12 col-md-5" value="Enviar"/>
+                                    </div>
+                              </div> 
+
+                          </div> 
+                          <!--<div class="col-xs-12 col-sm-7 col-sm-offset-2 col-md-6 col-md-offset-0">
+                                <img src="assets/img/credit-cards.png" class="ccards">
+                          </div> -->                    
+                      </div>
+
+                      <!--<div class="container-fluid">
+                          <h3 class="cclegal">Si no tienes la tarjeta de crédito Beyond<small><sup>&reg;</sup></small>, solicítala<small><sup>2</sup></small> <a class="apply-btn" href="#frm">aquí</a>.</h3>
+                      </div>-->
+
+                  </form>
+
+              </div>
+
+        </div>
+    </div>
+
+    <!-- Message Screen -->
+    <div id="msg-screen" class="full-screen hideScreen">
+      <div class="modal-content">
+           <div class="close-btn">x</div>
+            <h3 class="screen-txt-title">&iexcl;Mensaje de Error!</h3>
+            <div class="screen-txt-subtitle2 es"> </div>
+        </div>
+    </div>
+    <div id="full-screen" class="full-screen hideScreen">
+      <div class="modal-content">COMING SOON!</div>
+    </div>
+
+    <!-- Thanks Screen -->
+    <div id="thanks-screen" class="full-screen hideScreen">
+      <div class="modal-content">
+           <div class="close-btn">x</div>
+            <div class="container-fluid"><!--<img src="assets/img/logo.png"/>--></div>
+            <h3 class="screen-txt-title">&iexcl;Excelente!</h3>
+            <div class="screen-txt-subtitle2">Tu información fue recibida, ya estás participando.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
