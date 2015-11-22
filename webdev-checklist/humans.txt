@@ -1,0 +1,20 @@
+/* EQUIPO */
+    
+	Ingeniero de Programación: Tony López
+	Contacto: tony@lopezpagan.com
+	Twitter: @lopezpagan
+	Sitio Web: lopezpagan.com
+	De: Puerto Rico
+	
+
+/* AGRADECIMIENTOS */
+
+	(Primeramente) Idea Original: Web Developer Checklist
+	Sitio Web: webdevchecklist.com
+		
+		
+/* SITIO */
+	Last update: 2015/10/20
+	Language: English
+	Doctype: HTML5
+	IDE: Brackets

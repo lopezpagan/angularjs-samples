@@ -107,7 +107,7 @@
                                   <span class="red-color" ng-show="form.Email.$error.email">Este email no es válido.</span>
                                   <!--<span class="red-color" ng-show="form.Email.$error.pattern">Este email no es válido.</span>-->
                                 </span><br/>
-                                <input type="email" name="Email" ng-model="formList.email" placeholder="ej. account@provider.com" required >
+                                <input type="email" name="Email" ng-model="formList.email" required >
                                 <!--<input type="email" name="Email" ng-model="formList.email" ng-pattern="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i" required >-->
 
                           </div>
@@ -119,7 +119,7 @@
                                   <span class="red-color" ng-show="form.Phone.$error.pattern">Este número no es válido.</span>
                                 </span>
                                 <br/>
-                                <input type="text" name="Phone" placeholder="ej. 999.999.9999" ng-model="formList.phone" ng-pattern="/^(?:\(([0-9]{3})\)|([0-9]{3}))[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/" maxlength="14" required >
+                                <input type="text" name="Phone" ng-model="formList.phone" ng-pattern="/^(?:\(([0-9]{3})\)|([0-9]{3}))[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/" maxlength="14" required >
 
                           </div>                     
                       </div>
@@ -132,7 +132,7 @@
                                   <span class="red-color" ng-show="form.CCnumber.$error.pattern">Este número no es válido.</span>
                                 </span>
                                 <br/>
-                                <input type="text" name="CCnumber" placeholder="ej. 9999" ng-model="formList.ccnumber" ng-pattern="/^([0-9]{4})$/" maxlength="4" required >
+                                <input type="text" name="CCnumber" ng-model="formList.ccnumber" ng-pattern="/^([0-9]{4})$/" maxlength="4" required >
                           </div>
 
                           <div class="col-sm-6 form-group">
@@ -185,27 +185,12 @@
 
         </div>
     </div>
-    
-    <div class="modal fade" id="msg-screen" tabindex="-1" role="dialog" aria-labelledby="msg-screen-label" aria-hidden="true" style="display: none;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0;">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="msg-screen-label" style="text-align: center;"> &iexcl;Excelente! </h4>
-          </div>
-          <div class="modal-body" style="text-align: center;"> Tu información fue recibida, ya estás participando. </div>
-          <div class="modal-footer" style="border-top: 0; text-align: center;" >
-            <button type="button" class="btn btn-default" style="min-width: 150px; text-align: center; height: 40px;" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
 <!--// LOAD SCRIPTS //-->
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
 
 <script>
-(function(){
+window.load = function() {
 var app = angular.module('formApp', []);
         
     app.controller('formCtrl', function(){
@@ -213,7 +198,7 @@ var app = angular.module('formApp', []);
 
             formList.toggle = false;
 
-            /*formList.list = [{
+            formList.list = [{
                 fname: 'Tony', 
                 lname: 'Lopez', 
                 mname: 'Pagan', 
@@ -223,16 +208,11 @@ var app = angular.module('formApp', []);
                 cctype: 'Visa',
                 terms: '1',
                 LANG: 'ES'
-            }];*/
-        
-            formList.list = [{}];
+            }];
     
             formList.submit = function(form) {
                 if(form.$valid) {
-                    $('#msg-screen').modal('show');
                     formList.addPerson();
-                    form.$setPristine();
-                    form.$setUntouched();    
                 } 
             };
 
@@ -242,7 +222,7 @@ var app = angular.module('formApp', []);
 
                     formList.list.push({fname: formList.fname, lname: formList.lname, mname: formList.mname, email: formList.email, phone: formList.phone, ccnumber: formList.ccnumber, cctype: formList.data.selectedOption.value, terms: formList.terms, LANG: formList.LANG  });
 
-                    formList.fname = '';
+                    /*formList.fname = '';
                     formList.lname = '';
                     formList.mname = '';
                     formList.email = '';
@@ -250,7 +230,7 @@ var app = angular.module('formApp', []);
                     formList.ccnumber = '';
                     formList.cctype = '';
                     formList.cctype = '';
-                    formList.terms = '';
+                    formList.terms = '';*/
 
                 };
     
@@ -266,7 +246,7 @@ var app = angular.module('formApp', []);
               
     
        });
-})();    
+}   
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -284,6 +264,7 @@ var app = angular.module('formApp', []);
 <script src="assets/js/json2.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui-ieshiv.min.js"></script>
 <![endif]-->
-
+   
+   
 </body>
 </html>
